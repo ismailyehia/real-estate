@@ -10,7 +10,7 @@ async function test() {
     console.log(`SUCCESS: ${url}`, rows);
     await connection.end();
     process.exit(0);
-  } catch (err) {
+  } catch (err: any) {
     console.log(`FAILED: ${url} - ${err.message}`);
     process.exit(1);
   }
