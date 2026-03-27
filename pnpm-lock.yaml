@@ -33,12 +33,18 @@ catalogs:
     '@vitejs/plugin-react':
       specifier: ^5.0.4
       version: 5.2.0
+    bcryptjs:
+      specifier: ^3.0.3
+      version: 3.0.3
     class-variance-authority:
       specifier: ^0.7.1
       version: 0.7.1
     clsx:
       specifier: 2.1.1
       version: 2.1.1
+    dotenv:
+      specifier: ^17.3.1
+      version: 17.3.1
     drizzle-orm:
       specifier: ^0.45.1
       version: 0.45.1
@@ -48,6 +54,9 @@ catalogs:
     lucide-react:
       specifier: 0.545.0
       version: 0.545.0
+    mysql2:
+      specifier: ^3.12.0
+      version: 3.20.0
     react:
       specifier: 19.1.0
       version: 19.1.0
@@ -98,6 +107,22 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      bcryptjs:
+        specifier: 'catalog:'
+        version: 3.0.3
+      dotenv:
+        specifier: 'catalog:'
+        version: 17.3.1
+      drizzle-orm:
+        specifier: 'catalog:'
+        version: 0.45.1(mysql2@3.20.0(@types/node@25.5.0))
+      mysql2:
+        specifier: 'catalog:'
+        version: 3.20.0(@types/node@25.5.0)
+      tsx:
+        specifier: 'catalog:'
+        version: 4.21.0
     devDependencies:
       prettier:
         specifier: ^3.8.1
@@ -125,7 +150,7 @@ importers:
         version: 2.8.6
       drizzle-orm:
         specifier: 'catalog:'
-        version: 0.45.1(@types/pg@8.20.0)(pg@8.20.0)
+        version: 0.45.1(mysql2@3.20.0(@types/node@25.5.0))
       express:
         specifier: ^5
         version: 5.2.1
@@ -174,19 +199,8 @@ importers:
 
   lib/api-spec: {}
 
-  lib/api-zod: {}
-
-  lib/db:
+  lib/api-zod:
     dependencies:
-      drizzle-orm:
-        specifier: 'catalog:'
-        version: 0.45.1(@types/pg@8.20.0)(pg@8.20.0)
-      drizzle-zod:
-        specifier: ^0.8.3
-        version: 0.8.3(drizzle-orm@0.45.1(@types/pg@8.20.0)(pg@8.20.0))(zod@3.25.76)
-      pg:
-        specifier: ^8.20.0
-        version: 8.20.0
       zod:
         specifier: 'catalog:'
         version: 3.25.76
@@ -194,9 +208,25 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 25.5.0
-      '@types/pg':
-        specifier: ^8.18.0
-        version: 8.20.0
+
+  lib/db:
+    dependencies:
+      drizzle-orm:
+        specifier: 'catalog:'
+        version: 0.45.1(mysql2@3.20.0(@types/node@25.5.0))
+      drizzle-zod:
+        specifier: ^0.8.3
+        version: 0.8.3(drizzle-orm@0.45.1(mysql2@3.20.0(@types/node@25.5.0)))(zod@3.25.76)
+      mysql2:
+        specifier: ^3.12.0
+        version: 3.20.0(@types/node@25.5.0)
+      zod:
+        specifier: 'catalog:'
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.5.0
       drizzle-kit:
         specifier: ^0.31.9
         version: 0.31.10
@@ -1636,9 +1666,6 @@ packages:
   '@types/node@25.5.0':
     resolution: {integrity: sha512-jp2P3tQMSxWugkCUKLRPVUpGaL5MVFwF8RDuSRztfwgN1wmqJeMSbKlnEtQqU8UrhTmzEmZdu2I6v2dpp7XIxw==}
 
-  '@types/pg@8.20.0':
-    resolution: {integrity: sha512-bEPFOaMAHTEP1EzpvHTbmwR8UsFyHSKsRisLIHVMXnpNefSbGA1bD6CVy+qKjGSqmZqNqBDV2azOBo8TgkcVow==}
-
   '@types/qs@6.15.0':
     resolution: {integrity: sha512-JawvT8iBVWpzTrz3EGw9BTQFg3BQNmwERdKE22vlTxawwtbyUSlMppvZYKLZzB5zgACXdXxbD3m1bXaMqP/9ow==}
 
@@ -1676,6 +1703,10 @@ packages:
   atomic-sleep@1.0.0:
     resolution: {integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==}
     engines: {node: '>=8.0.0'}
+
+  aws-ssl-profiles@1.1.2:
+    resolution: {integrity: sha512-NZKeq9AfyQvEeNlN0zSYAaWrmBffJh3IELMZfRpJVWgrpEbtEpnjvzqBPf+mxoI287JohRDoa+/nsfqqiZmF6g==}
+    engines: {node: '>= 6.0.0'}
 
   baseline-browser-mapping@2.10.10:
     resolution: {integrity: sha512-sUoJ3IMxx4AyRqO4MLeHlnGDkyXRoUG0/AI9fjK+vS72ekpV0yWVY7O0BVjmBcRtkNcsAO2QDZ4tdKKGoI6YaQ==}
@@ -1835,6 +1866,10 @@ packages:
   decimal.js-light@2.5.1:
     resolution: {integrity: sha512-qIMFpTMZmny+MMIitAB6D7iVPEorVw6YQRWkvarTkT4tBeSLLiHzcwj6q0MmYSFCiVpiqPJTJEYIrpcPzVEIvg==}
 
+  denque@2.1.0:
+    resolution: {integrity: sha512-HVQE3AAb/pxF8fQAoiqpvg9i3evqug3hoiwakOyZAwJm+6vZehbkYXZ0l4JxS+I3QxM97v5aaRNhj8v5oBhekw==}
+    engines: {node: '>=0.10'}
+
   depd@2.0.0:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
     engines: {node: '>= 0.8'}
@@ -1848,6 +1883,10 @@ packages:
 
   dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
+
+  dotenv@17.3.1:
+    resolution: {integrity: sha512-IO8C/dzEb6O3F9/twg6ZLXz164a2fhTnEWb95H23Dm4OuN+92NmEAlTrupP9VW6Jm3sO26tQlqyvyi4CsnY9GA==}
+    engines: {node: '>=12'}
 
   drizzle-kit@0.31.10:
     resolution: {integrity: sha512-7OZcmQUrdGI+DUNNsKBn1aW8qSoKuTH7d0mYgSP8bAzdFzKoovxEFnoGQp2dVs82EOJeYycqRtciopszwUf8bw==}
@@ -2089,6 +2128,9 @@ packages:
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
 
+  generate-function@2.3.1:
+    resolution: {integrity: sha512-eeB5GfMNeevm/GRYq20ShmsaGcmI81kIX2K9XQx5miC8KdHaC6Jm0qQ8ZNeGOi7wYB8OsdxKs+Y2oVuTFuVwKQ==}
+
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
@@ -2157,6 +2199,9 @@ packages:
 
   is-promise@4.0.0:
     resolution: {integrity: sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==}
+
+  is-property@1.0.2:
+    resolution: {integrity: sha512-Ks/IoX00TtClbGQr4TWXemAnktAQvYB7HzcCxDGqEZU6oCmb2INHuOoKxbtR+HFkmYWBKv/dOZtGRiAjDhj92g==}
 
   jiti@2.6.1:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
@@ -2287,12 +2332,19 @@ packages:
   lodash@4.17.23:
     resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
 
+  long@5.3.2:
+    resolution: {integrity: sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA==}
+
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  lru.min@1.1.4:
+    resolution: {integrity: sha512-DqC6n3QQ77zdFpCMASA1a3Jlb64Hv2N2DciFGkO/4L9+q/IpIAuRlKOvCXabtRW6cQf8usbmM6BE/TOPysCdIA==}
+    engines: {bun: '>=1.0.0', deno: '>=1.30.0', node: '>=8.0.0'}
 
   lucide-react@0.545.0:
     resolution: {integrity: sha512-7r1/yUuflQDSt4f1bpn5ZAocyIxcTyVyBBChSVtBKn5M+392cPmI5YJMWOJKk/HUWGm5wg83chlAZtCcGbEZtw==}
@@ -2340,6 +2392,16 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
+  mysql2@3.20.0:
+    resolution: {integrity: sha512-eCLUs7BNbgA6nf/MZXsaBO1SfGs0LtLVrJD3WeWq+jPLDWkSufTD+aGMwykfUVPdZnblaUK1a8G/P63cl9FkKg==}
+    engines: {node: '>= 8.0'}
+    peerDependencies:
+      '@types/node': '>= 8'
+
+  named-placeholders@1.1.6:
+    resolution: {integrity: sha512-Tz09sEL2EEuv5fFowm419c1+a/jSMiBjI9gHxVLrVdbUkkNUUfjsVYs9pVZu5oCon/kmRh9TfLEObFtkVxmY0w==}
+    engines: {node: '>=8.0.0'}
+
   nanoid@3.3.11:
     resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -2384,40 +2446,6 @@ packages:
   path-to-regexp@8.3.0:
     resolution: {integrity: sha512-7jdwVIRtsP8MYpdXSwOS0YdD0Du+qOoF/AEPIt88PcCFrZCzx41oxku1jD88hZBwbNUIEfpqvuhjFaMAqMTWnA==}
 
-  pg-cloudflare@1.3.0:
-    resolution: {integrity: sha512-6lswVVSztmHiRtD6I8hw4qP/nDm1EJbKMRhf3HCYaqud7frGysPv7FYJ5noZQdhQtN2xJnimfMtvQq21pdbzyQ==}
-
-  pg-connection-string@2.12.0:
-    resolution: {integrity: sha512-U7qg+bpswf3Cs5xLzRqbXbQl85ng0mfSV/J0nnA31MCLgvEaAo7CIhmeyrmJpOr7o+zm0rXK+hNnT5l9RHkCkQ==}
-
-  pg-int8@1.0.1:
-    resolution: {integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==}
-    engines: {node: '>=4.0.0'}
-
-  pg-pool@3.13.0:
-    resolution: {integrity: sha512-gB+R+Xud1gLFuRD/QgOIgGOBE2KCQPaPwkzBBGC9oG69pHTkhQeIuejVIk3/cnDyX39av2AxomQiyPT13WKHQA==}
-    peerDependencies:
-      pg: '>=8.0'
-
-  pg-protocol@1.13.0:
-    resolution: {integrity: sha512-zzdvXfS6v89r6v7OcFCHfHlyG/wvry1ALxZo4LqgUoy7W9xhBDMaqOuMiF3qEV45VqsN6rdlcehHrfDtlCPc8w==}
-
-  pg-types@2.2.0:
-    resolution: {integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==}
-    engines: {node: '>=4'}
-
-  pg@8.20.0:
-    resolution: {integrity: sha512-ldhMxz2r8fl/6QkXnBD3CR9/xg694oT6DZQ2s6c/RI28OjtSOpxnPrUCGOBJ46RCUxcWdx3p6kw/xnDHjKvaRA==}
-    engines: {node: '>= 16.0.0'}
-    peerDependencies:
-      pg-native: '>=3.0.1'
-    peerDependenciesMeta:
-      pg-native:
-        optional: true
-
-  pgpass@1.0.5:
-    resolution: {integrity: sha512-FdW9r/jQZhSeohs1Z3sI1yxFQNFvMcnmfuj4WBMUTxOrAyLMaTcE1aAMBiTlbMNaXvBCQuVi0R7hd8udDSP7ug==}
-
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
@@ -2452,22 +2480,6 @@ packages:
   postcss@8.5.8:
     resolution: {integrity: sha512-OW/rX8O/jXnm82Ey1k44pObPtdblfiuWnrd8X7GJ7emImCOstunGbXUpp7HdBrFQX6rJzn3sPT397Wp5aCwCHg==}
     engines: {node: ^10 || ^12 || >=14}
-
-  postgres-array@2.0.0:
-    resolution: {integrity: sha512-VpZrUqU5A69eQyW2c5CA1jtLecCsN2U/bD6VilrFDWq5+5UIEVO7nazS3TEcHf1zuPYO/sqGvUvW62g86RXZuA==}
-    engines: {node: '>=4'}
-
-  postgres-bytea@1.0.1:
-    resolution: {integrity: sha512-5+5HqXnsZPE65IJZSMkZtURARZelel2oXUEO8rH83VS/hxH5vv1uHquPg5wZs8yMAfdv971IU+kcPUczi7NVBQ==}
-    engines: {node: '>=0.10.0'}
-
-  postgres-date@1.0.7:
-    resolution: {integrity: sha512-suDmjLVQg78nMK2UZ454hAG+OAW+HQPZ6n++TNDUX+L0+uUlLywnoxJKDou51Zm+zTCjrCl0Nq6J9C5hP9vK/Q==}
-    engines: {node: '>=0.10.0'}
-
-  postgres-interval@1.2.0:
-    resolution: {integrity: sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==}
-    engines: {node: '>=0.10.0'}
 
   prettier@3.8.1:
     resolution: {integrity: sha512-UOnG6LftzbdaHZcKoPFtOcCKztrQ57WkHDeRD9t/PTQtmT0NHSeWWepj6pS0z/N7+08BHFDQVUrfmfMRcZwbMg==}
@@ -2685,6 +2697,10 @@ packages:
     resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
     engines: {node: '>= 10.x'}
 
+  sql-escaper@1.3.3:
+    resolution: {integrity: sha512-BsTCV265VpTp8tm1wyIm1xqQCS+Q9NHx2Sr+WcnUrgLrQ6yiDIvHYJV5gHxsj1lMBy2zm5twLaZao8Jd+S8JJw==}
+    engines: {bun: '>=1.0.0', deno: '>=2.0.0', node: '>=12.0.0'}
+
   statuses@2.0.2:
     resolution: {integrity: sha512-DvEy55V3DB7uknRo+4iOGT5fP1slR8wQohVdknigZPMpMstaKJQWhwiYBACJE3Ul2pTnATihhBYnRhZQHGBiRw==}
     engines: {node: '>= 0.8'}
@@ -2838,10 +2854,6 @@ packages:
 
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
-
-  xtend@4.0.2:
-    resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
-    engines: {node: '>=0.4'}
 
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
@@ -4003,12 +4015,6 @@ snapshots:
     dependencies:
       undici-types: 7.18.2
 
-  '@types/pg@8.20.0':
-    dependencies:
-      '@types/node': 25.5.0
-      pg-protocol: 1.13.0
-      pg-types: 2.2.0
-
   '@types/qs@6.15.0': {}
 
   '@types/range-parser@1.2.7': {}
@@ -4052,6 +4058,8 @@ snapshots:
       tslib: 2.8.1
 
   atomic-sleep@1.0.0: {}
+
+  aws-ssl-profiles@1.1.2: {}
 
   baseline-browser-mapping@2.10.10: {}
 
@@ -4193,6 +4201,8 @@ snapshots:
 
   decimal.js-light@2.5.1: {}
 
+  denque@2.1.0: {}
+
   depd@2.0.0: {}
 
   detect-libc@2.1.2: {}
@@ -4204,6 +4214,8 @@ snapshots:
       '@babel/runtime': 7.29.2
       csstype: 3.2.3
 
+  dotenv@17.3.1: {}
+
   drizzle-kit@0.31.10:
     dependencies:
       '@drizzle-team/brocli': 0.10.2
@@ -4211,14 +4223,13 @@ snapshots:
       esbuild: 0.27.3
       tsx: 4.21.0
 
-  drizzle-orm@0.45.1(@types/pg@8.20.0)(pg@8.20.0):
+  drizzle-orm@0.45.1(mysql2@3.20.0(@types/node@25.5.0)):
     optionalDependencies:
-      '@types/pg': 8.20.0
-      pg: 8.20.0
+      mysql2: 3.20.0(@types/node@25.5.0)
 
-  drizzle-zod@0.8.3(drizzle-orm@0.45.1(@types/pg@8.20.0)(pg@8.20.0))(zod@3.25.76):
+  drizzle-zod@0.8.3(drizzle-orm@0.45.1(mysql2@3.20.0(@types/node@25.5.0)))(zod@3.25.76):
     dependencies:
-      drizzle-orm: 0.45.1(@types/pg@8.20.0)(pg@8.20.0)
+      drizzle-orm: 0.45.1(mysql2@3.20.0(@types/node@25.5.0))
       zod: 3.25.76
 
   dunder-proto@1.0.1:
@@ -4383,6 +4394,10 @@ snapshots:
 
   function-bind@1.1.2: {}
 
+  generate-function@2.3.1:
+    dependencies:
+      is-property: 1.0.2
+
   gensync@1.0.0-beta.2: {}
 
   get-caller-file@2.0.5: {}
@@ -4447,6 +4462,8 @@ snapshots:
   ipaddr.js@1.9.1: {}
 
   is-promise@4.0.0: {}
+
+  is-property@1.0.2: {}
 
   jiti@2.6.1: {}
 
@@ -4546,6 +4563,8 @@ snapshots:
 
   lodash@4.17.23: {}
 
+  long@5.3.2: {}
+
   loose-envify@1.4.0:
     dependencies:
       js-tokens: 4.0.0
@@ -4553,6 +4572,8 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  lru.min@1.1.4: {}
 
   lucide-react@0.545.0(react@19.1.0):
     dependencies:
@@ -4588,6 +4609,22 @@ snapshots:
 
   ms@2.1.3: {}
 
+  mysql2@3.20.0(@types/node@25.5.0):
+    dependencies:
+      '@types/node': 25.5.0
+      aws-ssl-profiles: 1.1.2
+      denque: 2.1.0
+      generate-function: 2.3.1
+      iconv-lite: 0.7.2
+      long: 5.3.2
+      lru.min: 1.1.4
+      named-placeholders: 1.1.6
+      sql-escaper: 1.3.3
+
+  named-placeholders@1.1.6:
+    dependencies:
+      lru.min: 1.1.4
+
   nanoid@3.3.11: {}
 
   negotiator@1.0.0: {}
@@ -4616,41 +4653,6 @@ snapshots:
   parseurl@1.3.3: {}
 
   path-to-regexp@8.3.0: {}
-
-  pg-cloudflare@1.3.0:
-    optional: true
-
-  pg-connection-string@2.12.0: {}
-
-  pg-int8@1.0.1: {}
-
-  pg-pool@3.13.0(pg@8.20.0):
-    dependencies:
-      pg: 8.20.0
-
-  pg-protocol@1.13.0: {}
-
-  pg-types@2.2.0:
-    dependencies:
-      pg-int8: 1.0.1
-      postgres-array: 2.0.0
-      postgres-bytea: 1.0.1
-      postgres-date: 1.0.7
-      postgres-interval: 1.2.0
-
-  pg@8.20.0:
-    dependencies:
-      pg-connection-string: 2.12.0
-      pg-pool: 3.13.0(pg@8.20.0)
-      pg-protocol: 1.13.0
-      pg-types: 2.2.0
-      pgpass: 1.0.5
-    optionalDependencies:
-      pg-cloudflare: 1.3.0
-
-  pgpass@1.0.5:
-    dependencies:
-      split2: 4.2.0
 
   picocolors@1.1.1: {}
 
@@ -4713,16 +4715,6 @@ snapshots:
       nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
-
-  postgres-array@2.0.0: {}
-
-  postgres-bytea@1.0.1: {}
-
-  postgres-date@1.0.7: {}
-
-  postgres-interval@1.2.0:
-    dependencies:
-      xtend: 4.0.2
 
   prettier@3.8.1: {}
 
@@ -4977,6 +4969,8 @@ snapshots:
 
   split2@4.2.0: {}
 
+  sql-escaper@1.3.3: {}
+
   statuses@2.0.2: {}
 
   strip-json-comments@5.0.3: {}
@@ -5101,8 +5095,6 @@ snapshots:
       use-sync-external-store: 1.6.0(react@19.1.0)
 
   wrappy@1.0.2: {}
-
-  xtend@4.0.2: {}
 
   yallist@3.1.1: {}
 
